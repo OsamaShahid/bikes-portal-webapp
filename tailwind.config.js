@@ -110,4 +110,3 @@ module.exports = {
     'prettier-plugin-tailwindcss',
   ],
 };
-

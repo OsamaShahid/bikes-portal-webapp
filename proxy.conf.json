@@ -1,0 +1,8 @@
+{
+    "/api": {
+      "target": "https://bikeportal.cyclic.app",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
+  
