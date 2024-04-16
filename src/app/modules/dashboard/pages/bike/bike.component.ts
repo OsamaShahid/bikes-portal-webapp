@@ -55,6 +55,7 @@ export class BikeComponent implements OnInit {
     { headerName: 'Product Type', field: 'productType' },
     { headerName: 'Vendor', field: 'vendor' },
     { headerName: 'Total Inventory', field: 'totalInventory' },
+    { headerName: 'Availability for sale', field: 'availableForSale',  valueFormatter: (param) => { return param.data.valueFormatter ? 'yes' : 'no' }}
   ];
 
   constructor(private bikeService: BikeService, private router: Router) {

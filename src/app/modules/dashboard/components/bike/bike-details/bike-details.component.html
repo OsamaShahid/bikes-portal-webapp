@@ -13,9 +13,8 @@
     <p class="text-sm text-muted-foreground mt-2">Description: {{ bike.description }}</p>
     <p class="text-sm text-muted-foreground mt-2">Handle: {{ bike.handle }}</p>
     <p class="text-sm text-muted-foreground mt-2">Product Type: {{ bike.productType }}</p>
-    <p class="text-sm text-muted-foreground mt-2">Created At: {{ bike.createdAt }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Created At: {{ bike.createdAt | date:'yyyy-MM-dd' }}</p>
     <p class="text-sm text-muted-foreground mt-2">Vendor: {{ bike.vendor }}</p>
-    <p class="text-sm text-muted-foreground mt-2">Updated At: {{ bike.updated }}</p>
     <p class="text-sm text-muted-foreground mt-2">Total Inventory: {{ bike.totalInventory }}</p>
     <p class="text-sm text-muted-foreground mt-2">Available For Sale: {{ bike.availableForSale ? 'Yes' : 'No' }}</p>
     <div class="mt-6 flex items-center justify-between">
