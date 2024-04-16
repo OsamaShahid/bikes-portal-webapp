@@ -6,6 +6,7 @@ export const environment = {
     USER_BASE_URL: '/api/user',
     BIKE_BASE_URL: BASE_DOMAIN + '/bikes',
     BIKE: {
+        ALL: '/all',
         GET_BY_HANDLE: '/by-handle',
         SEARCH_BY_TITLE: '/search/by-title',
     }
