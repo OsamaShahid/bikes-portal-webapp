@@ -1,0 +1,84 @@
+<div class="flex h-[420px] flex-col rounded-lg bg-background p-8">
+    
+    <div
+      [ngStyle]="{ 'background-image': 'url(' + bike.image + ')' }"
+      class="h-[240px] cursor-pointer rounded-md bg-cover transition duration-150 ease-in-out hover:opacity-75"></div>
+      <button
+      (click)="goBack()"
+      class="absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded text-muted-foreground/50 transition-all duration-200 focus:outline-none hover:text-muted-foreground"
+      [ngClass]="{ 'rotate-180': false}">
+      <svg-icon src="assets/icons/heroicons/solid/chevron-double-left.svg"> </svg-icon>
+    </button>
+    <h2 class="text-md mt-6 font-semibold text-foreground">{{ bike.title }}</h2>
+    <p class="text-sm text-muted-foreground mt-2">Description: {{ bike.description }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Handle: {{ bike.handle }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Product Type: {{ bike.productType }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Created At: {{ bike.createdAt }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Vendor: {{ bike.vendor }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Updated At: {{ bike.updated }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Total Inventory: {{ bike.totalInventory }}</p>
+    <p class="text-sm text-muted-foreground mt-2">Available For Sale: {{ bike.availableForSale ? 'Yes' : 'No' }}</p>
+    <div class="mt-6 flex items-center justify-between">
+      <app-button (buttonClick)="deleteBike()" [impact]="'light'" [size]="'medium'" [shape]="'rounded'" [tone]="'danger'" >Delete</app-button>
+      <app-button (buttonClick)="openModal()" [impact]="'light'" [size]="'medium'" [shape]="'rounded'" [tone]="'light'" >Edit</app-button>
+    </div>
+
+    <div class="fixed z-10 inset-0 overflow-y-auto" *ngIf="isModalOpen" (clickOutside)="closeModal()">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 sm:pt-0">
+          <!-- Modal overlay -->
+          <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+            <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+          </div>
+    
+          <!-- Modal content -->
+          <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+              <!-- Modal title -->
+              <h3 class="text-lg leading-6 font-medium text-gray-900">Update Bike</h3>
+              <!-- Bike details input fields -->
+              <div class="mt-5">
+                <label for="title" class="block text-sm font-medium text-gray-700">Title<span class="text-red-500">*</span></label>
+                <input type="text" required id="title" name="title" [(ngModel)]="bikeDetails.title" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="mt-5">
+                <label for="description" class="block text-sm font-medium text-gray-700">Description<span class="text-red-500">*</span></label>
+                <textarea id="description" required name="description" [(ngModel)]="bikeDetails.description" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+              </div>
+              <div class="mt-5">
+                <label for="handle" class="block text-sm font-medium text-gray-700">Handle<span class="text-red-500">*</span></label>
+                <input type="text" required id="handle" name="handle" [(ngModel)]="bikeDetails.handle" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="mt-5">
+                <label for="productType" class="block text-sm font-medium text-gray-700">Product Type<span class="text-red-500">*</span></label>
+                <input type="text" required id="productType" name="productType" [(ngModel)]="bikeDetails.productType" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="mt-5">
+                <label for="vendor" class="block text-sm font-medium text-gray-700">Vendor<span class="text-red-500">*</span></label>
+                <input type="text" required id="vendor" name="vendor" [(ngModel)]="bikeDetails.vendor" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="mt-5">
+                <label for="totalInventory" class="block text-sm font-medium text-gray-700">Total Inventory</label>
+                <input type="number" id="totalInventory" name="totalInventory" [(ngModel)]="bikeDetails.totalInventory" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="mt-5">
+                <label for="availableForSale" class="block text-sm font-medium text-gray-700">Available for Sale</label>
+                <input type="checkbox" id="availableForSale" name="availableForSale" [(ngModel)]="bikeDetails.availableForSale" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="mt-5">
+                <label for="minPrice" class="block text-sm font-medium text-gray-700">Min Price</label>
+                <input type="number" id="minPrice" name="minPrice" [(ngModel)]="bikeDetails.priceRange.minPrice.amount" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+              <div class="mt-5">
+                <label for="maxPrice" class="block text-sm font-medium text-gray-700">Max Price</label>
+                <input type="number" id="maxPrice" name="maxPrice" [(ngModel)]="bikeDetails.priceRange.maxPrice.amount" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+              </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              <!-- Save and cancel buttons -->
+              <app-button (buttonClick)="patchBike()" [disabled]="!(!bikeDetails.title || !bikeDetails.handle || !bikeDetails.productType)"  [impact]="'light'" [size]="'medium'" [shape]="'rounded'" [tone]="'primary'">Update</app-button>
+              <app-button (buttonClick)="closeModal()"  [impact]="'none'" [size]="'medium'" [shape]="'rounded'" [tone]="'primary'">Cancel</app-button>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
