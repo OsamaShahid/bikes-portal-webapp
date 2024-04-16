@@ -58,7 +58,7 @@ export class BikeComponent implements OnInit {
     { headerName: 'Availability for sale', field: 'availableForSale',  valueFormatter: (param) => { return param.data.valueFormatter ? 'yes' : 'no' }}
   ];
 
-  constructor(private bikeService: BikeService, private router: Router) {
+  constructor(private bikeService: BikeService) {
   }
 
   clearBike() {
@@ -81,9 +81,9 @@ export class BikeComponent implements OnInit {
   }
 
   fetchBikes() {
-    this.bikeService.listAll().subscribe(bikesData => {
+    this.bikeService.listAll().subscribe((bikesData: Bike[]) => {
         if (bikesData.length) {
-            this.bikes = [ ...bikesData ];
+            this.bikes = [ ...bikesData ].filter(item => { return !!item.id });
         }
     });
   }
@@ -121,7 +121,6 @@ export class BikeComponent implements OnInit {
     const bikeDetails = event.data;
     this.clickedRowData  = bikeDetails;
     this.showingDetails = true;
-    // this.router.navigate(['/dashboard/bikes/details', bikeDetails.id]);
   }
 
   clearClickedRow() {

@@ -12,14 +12,18 @@
 .ag-theme-quartz {
   --ag-foreground-color: black;
   --ag-background-color: white;
-  --ag-header-foreground-color:rgb(204, 29, 35);
-  --ag-header-background-color: #E6B9C2;
+  --ag-header-foreground-color:#2563EB;
+  --ag-header-background-color: #CFDAF6;
   --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
-  --ag-header-column-resize-handle-color: rgb(126, 46, 132);
+  --ag-header-column-resize-handle-color: #2563EB;
 
   --ag-grid-size: 12px;
   --ag-list-item-height: 20px;
   padding-top: 1rem;
+}
+
+.ag-row {
+    cursor: pointer;
 }
 
 @layer base {

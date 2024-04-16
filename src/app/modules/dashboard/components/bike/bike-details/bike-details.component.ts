@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Bike } from '../../../models/bike';
 import { BikeService } from '../../../services/bike.service';
 import { CurrencyPipe, NgClass, NgStyle } from '@angular/common';
@@ -25,10 +24,10 @@ export class BikeDetailsComponent implements OnInit {
   bikeDetails: Bike = {} as Bike;
   isModalOpen: boolean = false;
 
-  constructor(private route: ActivatedRoute, private bikeService: BikeService) {}
+  constructor(private bikeService: BikeService) {}
 
   ngOnInit(): void {
-    this.bikeService.getById(this.id.toString()).subscribe(
+    this.bikeService.getById(this.id?.toString()).subscribe(
         (bike: Bike) => {
           this.bike = bike;
         },
@@ -55,11 +54,12 @@ export class BikeDetailsComponent implements OnInit {
             return;
         }
 
-        const patchData: any = { ...this.bikeDetails };
-        delete patchData.created;
-        delete patchData.updated;
+        let { priceRange, ...patchData } = this.bikeDetails;
+        const patchBody: any = { ...this.bikeDetails, priceRange: { minPrice: { ...this.bikeDetails.priceRange.minPrice }, maxPrice: { ...this.bikeDetails.priceRange.maxPrice } } };
+        delete patchBody.created;
+        delete patchBody.updated;
 
-        this.bikeService.replaceExistingBike(this.bikeDetails.id, patchData).subscribe((updatedBike: Bike) => {
+        this.bikeService.replaceExistingBike(this.bikeDetails.id, patchBody).subscribe((updatedBike: Bike) => {
             if (updatedBike) {
               this.bikeDetails = {} as Bike;  
               this.bike = { ...updatedBike }
@@ -69,7 +69,7 @@ export class BikeDetailsComponent implements OnInit {
     }
 
     openModal(): void {
-        this.bikeDetails = { ...this.bike };
+        this.bikeDetails = { ...this.bike, priceRange: { minPrice: { ...this.bike.priceRange.minPrice }, maxPrice: { ...this.bike.priceRange.maxPrice } } };
         this.isModalOpen = true;
     }
     
